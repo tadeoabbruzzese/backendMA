@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    {{!-- <a class="navbar-brand" href="/">Vídeo Club</a> --}}
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            {{#if nombre}}
+            <a class="nav-link active" aria-current="page" href="/api/peliculas">Inicio</a>
+            {{else}}
+            <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+            {{/if}}
+          
+        </li>
+      </ul>
+
+      <div>
+
+        {{#if nombre}}
+            <div>
+                {{nombre}}
+                <a href="/api/auth/logout" class="btn btn-danger">Desloguearme</a>
+            </div>
+        {{else}}
+            <a href="/api/auth/signin" class="btn btn-primary">SignIn</a>
+            <a href="/api/auth/signup" class="btn btn-success">SignUp</a>
+        {{/if}}
+      </div>
+      
+    </div>
+  </div>
+</nav>

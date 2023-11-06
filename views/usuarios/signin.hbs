@@ -1,0 +1,29 @@
+<h1>Logueo</h1>
+{{#each error}}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{this.msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/each}}
+{{!-- border border-warning p-5 w-50 m-auto --}}
+<form action="/api/auth/signin" method="POST" class="border border-warning p-5">
+
+    {{!-- Correo --}}
+    <div class="mb-3">
+        <label for="lbl-correo" class="form-label">Correo Electrónico</label>
+        <input type="text" class="form-control" id="lbl-correo" name="email" placeholder="Ingrese su correo">
+    </div>
+
+    {{!-- Password --}}
+    <div class="mb-3">
+        <label for="lbl-password" class="form-label">Contraseña</label>
+        <input type="text" class="form-control" id="lbl-password" name="password" placeholder="Ingrese su contraseña">
+    </div>
+    
+    {{!-- Botón de envío --}}
+    <button class="btn btn-danger">
+        Sign In
+    </button>
+
+
+</form>

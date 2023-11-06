@@ -1,0 +1,42 @@
+<h1 class="display-1 m-auto">Crear Usuario</h1>
+
+{{#each error}}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    {{this.msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{{/each}}
+{{!-- border border-warning p-5 w-50 m-auto --}}
+<form action="/api/auth/signup" method="POST" class="border border-success p-5 w-50 m-auto">
+
+    {{!-- Nombre --}}
+    <div class="mb-3">
+        <label for="lbl-nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="lbl-nombre" name="name" value="{{name}}" placeholder="Ingrese su nombre">
+    </div>
+
+    {{!-- Correo --}}
+    <div class="mb-3">
+        <label for="lbl-correo" class="form-label">Correo Electrónico</label>
+        <input type="text" class="form-control" id="lbl-correo" name="email" value="{{email}}"  placeholder="Ingrese su correo">
+    </div>
+
+    {{!-- Password --}}
+    <div class="mb-3">
+        <label for="lbl-password" class="form-label">Contraseña</label>
+        <input type="text" class="form-control" id="lbl-password" name="password" placeholder="Ingrese su contraseña">
+    </div>
+
+    {{!-- Reingresar Password --}}
+    <div class="mb-3">
+        <label for="lbl-confirm-password" class="form-label">Reingrese su contraseña</label>
+        <input type="text" class="form-control" id="lbl-confirm_password" name="confirm_password" placeholder="Ingrese su contraseña">
+    </div>
+    
+    {{!-- Botón de envío --}}
+    <button class="btn btn-primary">
+        Signup
+    </button>
+
+
+</form>
