@@ -24,11 +24,10 @@ const signup = async (req, res) => {
         }
 
         if(error.length > 0){
-            return res.render('usuarios/signup', {
-                error,
-                name,
-                email
-            })
+            return res.status(404).json({msg: 'Hay errores',
+            error,
+            name,
+            email})
              
         }
 
@@ -36,15 +35,14 @@ const signup = async (req, res) => {
 
         if(userFound) {
             // Si el usuario ya esta registrado con el mail, entonces...
-            return res.send('Ya existe el usuario en nuestros registros')
+            return res.status(404).json({msg: 'Ya existe el usuario en nuestros registros'})
         }
 
         const newUser = await models.createUser({ name, email, password })
         if(!newUser){
-            return res.send('No se pudo crear el usuario')
+            return res.status(404).json({msg: 'No se pudo crear el usuario'})
         }
-        req.flash('mensaje_exitoso', `Usuario ${name} registrado correctamente!`)
-        res.redirect('/api/auth/signin')
+        // res.redirect('/api/auth/signin')
         // res.send('Todo salio bien, usuario creado')
     } catch (error) {
         res.send(error)
@@ -59,7 +57,7 @@ const showAuthFormSignIn =  (req, res) => {
 }
 
 const signin = passport.authenticate('local', {
-    successRedirect: '/api/peliculas',
+    successRedirect: '/api/auth/signup',
     failureRedirect: '/api/auth/signin'
 })
 
@@ -67,7 +65,7 @@ const logout =  (req, res, next) => {
    
     req.logout((err) => {
         if(err) return next(err)
-        res.redirect('/api/auth/signin')
+        res.redirect('/')
     })
 }
 

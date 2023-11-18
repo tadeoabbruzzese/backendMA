@@ -9,11 +9,10 @@ import session from 'express-session'
 import passport from 'passport'
 import MongoStore from 'connect-mongo'
 import flash from 'connect-flash'
+import cors from 'cors';
 
 import routerUsuarios from './routers/usuarios.router.js'
-import routerPeliculas from './routers/peliculas.router.js'
 import * as passportStrategy from './config/passport.js'
-import routerPublic from './routers/public.router.js'
 
 
 
@@ -78,11 +77,31 @@ app.use((req, res, next) => {
 })
 
 
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (process.env.CORS_WHITELIST.split(',').indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Habilitar credenciales
+};
+
+app.use(express.urlencoded({extended:true})) // Decodifica lo enviado desde un form
+app.use(express.json())
+app.use(cors(corsOptions))
+
 
 // ! Rutas
-app.use('/', routerPublic)
-app.use('/api/peliculas', routerPeliculas)
+
 app.use('/api/auth', routerUsuarios)
+
+app.options('*', cors(corsOptions));
+
+
 
 app.all('*', (req,res) => {
     const {method, url} = req
